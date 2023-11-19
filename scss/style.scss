@@ -4,29 +4,35 @@ $radius: 6.25em;
 
 .container {margin: 0.5em;}
 .page-header {display: flex; justify-content: space-between; align-items: center;
-    h1 {margin: 0; font-size: 1.75em; line-height: 2.125em;}
-    .buttons {text-wrap: nowrap;
-        span {display: inline-block; width: 2.5em; height: 2.5em; cursor: pointer; border-radius: 100%;
-            &.btn-search {background: url(../imgs/search.png) center center no-repeat;}
-            &.btn-filter {background: url(../imgs/filter.png) center center no-repeat;}
+    h1 {margin: 0; font-size: 1.75em; line-height: 2.125em; white-space: nowrap;}
+    .buttons {
+        span {display: inline-block; width: 2em; height: 2em; cursor: pointer; border-radius: 100%;
+            &.btn-search {background: url(../imgs/search.svg) center center no-repeat;}
+            &.btn-filter {background: url(../imgs/filter.svg) center center no-repeat;}
             &:hover {background-color: #5856D6;}
         }
     }
 }
 
-.filter-container {display: flex; margin: 0.5em 0; padding: 0; flex-wrap: wrap;
+.filter-container {display: flex; margin: 0.5em 0; padding: 0; overflow-y: scroll; scrollbar-width: none;
+    &::-webkit-scrollbar {display: none;}
     a {border-radius: $radius; background: white; padding: 0.3em 0.75em; margin: 0.5em; color: black; text-decoration: none; text-wrap: nowrap;
         &.active {color: white; background: #5856D6;}
     }
 }
 
-.product-list {display: flex; flex-wrap: wrap; justify-content: flex-start;
-    .item {text-decoration: none; color: black; width: 10.68em; margin: 1em 0.75em;
+.product-list {display: flex; flex-wrap: wrap; justify-content: flex-start; margin: 0.5em 0;
+    .item {text-decoration: none; color: black; padding: 1em 0.75em; flex-basis: 50%; box-sizing: border-box;
+        @media screen and (max-width: 389px) {flex-basis: 100%;}
+        @media screen and (min-width: 768px) {flex-basis: 25%;}
+        @media screen and (min-width: 1024px) {flex-basis: 20%;}
         a.content {color: black; text-decoration: none; display: flex; flex-direction: column; position: relative; position: relative; margin-bottom: auto;
+            %disc-labs {position: absolute; top: -0.5em; border-radius: $radius; color: white; font-size: 0.625em; font-weight: bold; padding: 0.5em;}
             .image {height: 8.44em; background-repeat: no-repeat; background-position: center;}
-            .discount {background: linear-gradient(144.8deg, #5856D6 4.04%, #D000A2 100%), linear-gradient(144.8deg, #5856D6 4.04%, #AF52DE 100%); position: absolute; top: -0.5em; border-radius: $radius; color: white;  font-size: 0.625em; font-weight: bold; padding: 0.5em;
+            .discount {@extend %disc-labs; background: linear-gradient(144.8deg, #5856D6 4.04%, #D000A2 100%), linear-gradient(144.8deg, #5856D6 4.04%, #AF52DE 100%);
                 &::before {content: "\20bd"; display: inline-block; color: black;  background-color: white; border-radius: 100%; margin-right: 0.5em; padding: 0 0.2em; mix-blend-mode: color-dodge;}
             }
+            .discount-label {@extend %disc-labs; background: #CE0C0C;  right: 0.5em;}
             .price {padding-top: 0.75em; font-size: 0.875em; font-weight: 600;
                 &::after {content: "\20bd"; padding-left: 0.5em;}
             }
